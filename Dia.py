@@ -370,17 +370,18 @@ class Spider():
                 break
     def from_dataframe_to_data(self,df,extension,adress):
         self.extension = extension
-        self.df = df 
+        self.df = df
+        self.adress = adress
         if self.extension == "csv":
-            return self.df.to_csv(adress,index = False)
+            return self.df.to_csv(self.adress,index = False)
         elif self.extension == "xlsx":
-            return self.df.to_excel(adress,index = False)
+            return self.df.to_excel(self.adress,index = False)
         elif self.extension == "sql":
-            return self.df.to_sql(adress,index = False)
+            return self.df.to_sql(self.adress,index = False)
         elif self.extension == "json":
-            return self.df.to_json(adress,index = False)
+            return self.df.to_json(self.adress,index = False)
         elif self.extension == "parquet":
-            return self.df.to_parquet(adress,index = False)
+            return self.df.to_parquet(self.adress,index = False)
         
     
         
@@ -409,5 +410,5 @@ if __name__=="__main__":
         links.extend(spider.extract_single_data(url=link))
 
     df = spider.extract_multiple_api_data(url_list=links)
-
+    spider.from_dataframe_to_data(df=df,extension="xlsx",adress=r"C:\Users\Cash\Proyectos\Web Scrapping\Dia\output.xlsx")
     print(df)
